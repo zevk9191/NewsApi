@@ -1,6 +1,5 @@
 const section = document.querySelector('#section');
 const navigation = document.querySelector('#navigation');
-
 const options = {
     method: "GET",
     headers: {
@@ -17,11 +16,11 @@ navigation.addEventListener("click", (event) => {
     }
 })
 
-async function loadApi(section) {
-    let response = await fetch(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=mXG2yTTr2lwpAgGeDbuyqauFKz44AFEL`, options);
+async function loadApi(chapter) {
+    let response = await fetch(`https://api.nytimes.com/svc/topstories/v2/${chapter}.json?api-key=mXG2yTTr2lwpAgGeDbuyqauFKz44AFEL`, options);
     return response
 }
 
 function createNews(array) {
-//my code;
+    console.log(array);
 }

@@ -1,14 +1,47 @@
-.inputs__style {
-    margin: 10px;
-    background: #dc8b39;
-    color: #fff;
-    padding: 4px 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    line-height: 24px;
+.header__span {
+    margin: 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.5vmax;
+    color: #FFFFFF;
+    padding-right: 2%;
+}
+
+.header__h1 {
+    display: flex;
+    align-items: flex-end;
+    font-family: 'Felix Titling';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 3vmax;
+    color: #FFFFFF;
+}
+
+.button__word {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1vmax;
+    line-height: 100%;
+    color: #4F4F4F;
+}
+
+.btn__style {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12vmax;
+    min-height: 1vmin;
+    height: 2.5vmax;
+    margin: 2% 0 2% 0;
     cursor: pointer;
-    vertical-align: bottom;
-    width: auto;
-    height: auto;
+    background: #FFFFFF;
+    border-radius: 24px;
+    border: none;
+}
+
+.active {
+    display: list-item;
+    color: #B90000;
 }

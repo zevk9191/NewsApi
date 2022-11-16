@@ -9,30 +9,54 @@
     <link rel="stylesheet" href="styles/basic__style.css">
     <link rel="stylesheet" href="styles/class__style.css">
     <link rel="stylesheet" href="styles/id__style.css">
+    <link rel="stylesheet" href="styles/news__style.css">
+    <link rel="stylesheet" href="styles/pseudo__style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
-<header id="header" >
-    <h1>News from New York Times</h1>
-    <nav id="navigation">
-            <input type="submit" value="Popular" class="inputs__style" data-section="popular">
-            <input type="submit" value="Automobiles" class="inputs__style" data-section="automobiles">
-            <input type="submit" value="Business" class="inputs__style" data-section="business">
-            <input type="submit" value="Fashion" class="inputs__style" data-section="fashion">
-            <input type="submit" value="Health" class="inputs__style" data-section="health">
-            <input type="submit" value="Movies" class="inputs__style" data-section="movies">
-            <input type="submit" value="Politics" class="inputs__style" data-section="politics">
-            <input type="submit" value="Science" class="inputs__style" data-section="science">
-            <input type="submit" value="Sports" class="inputs__style" data-section="sports">
-            <input type="submit" value="Technology" class="inputs__style" data-section="technology">
-            <input type="submit" value="Travel" class="inputs__style" data-section="travel">
-            <input type="submit" value="World" class="inputs__style" data-section="world">
-    </nav>
+<header id="header">
+    <span class="header__span">News from</span>
+    <h1 class="header__h1"> New York Times</h1>
 </header>
-<main>
-    <section id="section">
-        
-    </section>
+<nav id="navigation">
+    <button type="submit" class="btn__style" data-section="arts"><span class="button__word">Arts</span></button>
+    <button type="submit" class="btn__style" data-section="automobiles"><span class="button__word">Automobiles</span>
+    </button>
+    <button type="submit" class="btn__style" data-section="business"><span class="button__word">Business</span></button>
+    <button type="submit" class="btn__style" data-section="fashion"><span class="button__word">Fashion</span></button>
+    <button type="submit" class="btn__style" data-section="health"><span class="button__word">Health</span></button>
+    <button type="submit" class="btn__style" data-section="movies"><span class="button__word">Movies</span></button>
+    <button type="submit" class="btn__style" data-section="politics"><span class="button__word">Politics</span></button>
+    <button type="submit" class="btn__style" data-section="science"><span class="button__word">Science</span></button>
+    <button type="submit" class="btn__style" data-section="sports"><span class="button__word">Sports</span></button>
+    <button type="submit" class="btn__style" data-section="technology"><span class="button__word">Technology</span>
+    </button>
+    <button type="submit" class="btn__style" data-section="travel"><span class="button__word">Travel</span></button>
+    <button type="submit" class="btn__style" data-section="world"><span class="button__word">World</span></button>
+</nav>
+<main id="main">
+    <!--        <template id="template">-->
+
+    <!--        </template>-->
+    <div class="container">
+        <h3 class="news__title">
+            A Low Point for the Monarchy, in a New Season of ‘The Crown’
+            <input type="submit" class="link__button" value="View     >">
+        </h3>
+        <div class="news__information">
+            <span class="section__news">Technology</span>
+            <span class="publish__time">14:05</span>
+            <span class="publish__day">09.11.22</span>
+            <p class="news__abstract">
+                Queen Elizabeth II wasn’t always the wildly popular figure that Britain mourned this year, as the latest
+                episodes of the Netflix hit recall.
+            </p>
+        </div>
+
+    </div>
 </main>
+<footer id="footer">
+    тут буде пагінація
+</footer>
 </body>
 </html>
