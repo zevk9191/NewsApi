@@ -1,3 +1,5 @@
-.news__title:hover {
-    background: #000;
+.news__title:hover .link__button {
+    font-size: 1vmax;
+    height: 10%;
+    width: 22%;
 }
