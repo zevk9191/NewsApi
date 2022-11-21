@@ -2,4 +2,9 @@
     font-size: 1vmax;
     height: 10%;
     width: 22%;
+    cursor: pointer;
+}
+
+.news__title:hover {
+    cursor: pointer;
 }
