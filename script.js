@@ -80,6 +80,14 @@ function cutAbstract(newsAbstract) {
     return (newsAbstract.length > 135) ? newsAbstract.slice(0, 135 - 1) + '…' : newsAbstract;
 }
 
+function cutDayTime (time) {
+    return (time.length > 11) ? time.slice(0, 11 - 1) : time;
+}
+
+function cutTime (time) {
+    return (time.length > 12) ? time.slice(11, 16) : time;
+}
+
 function addInformToNews(array) {
     let news = array.results;
     console.log(news);
@@ -94,7 +102,10 @@ function addInformToNews(array) {
 
         if (currentNews.section === "admin") continue;
         createdNews.spanNews.textContent = currentNews.section.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
-        createdNews.timeDay = currentNews.published_date;
+        createdNews.timeDay.textContent = cutDayTime(currentNews.published_date);
+        createdNews.timeDay.setAttribute("datetime", cutDayTime(currentNews.published_date));
+        createdNews.timeClock.textContent = cutTime(currentNews.published_date);
+        createdNews.timeClock.setAttribute("datetime", cutTime(currentNews.published_date));
         createdNews.p.textContent = cutAbstract(currentNews.abstract);
         createdNews.h3.style.background = checkBgImg(currentNews);
         main.append(createdNews.article);
