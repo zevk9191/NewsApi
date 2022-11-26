@@ -7,9 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NewsApi</title>
     <link rel="stylesheet" href="styles/basic__style.css">
-    <link rel="stylesheet" href="styles/class__style.css">
-    <link rel="stylesheet" href="styles/id__style.css">
+    <link rel="stylesheet" href="styles/header__style.css">
+    <link rel="stylesheet" href="styles/navigation__style.css">
+    <link rel="stylesheet" href="styles/main__style.css">
     <link rel="stylesheet" href="styles/news__style.css">
+    <link rel="stylesheet" href="styles/floor__style.css">
     <link rel="stylesheet" href="styles/pseudo__style.css">
     <script src="script.js" defer></script>
 </head>
@@ -33,26 +35,32 @@
     <button type="submit" class="btn__style" data-section="world">World</button>
 </nav>
 <main id="main">
-    <template id="template">
-        <article class="container">
-            <h3 class="news__title">
-                <span class="title__text">A Low Point for the Monarchy, in a New Season of ‘The Crown’</span>
-                <input type="submit" class="link__button" value="View     >">
-            </h3>
-            <div class="news__information">
-                <span class="section__name">Technology</span>
-                <time class="publish__time">14:05</time>
-                <time class="publish__day">09.11.22</time>
-                <p class="news__abstract">
-                    Queen Elizabeth II wasn’t always the wildly popular figure that Britain mourned this year, as the latest
-                    episodes of the Netflix hit recall.
-                </p>
-            </div>
-        </article>
-    </template>
+    <!--    <template id="template">-->
+    <!--        <article class="container">-->
+    <!--            <h3 class="news__title">-->
+    <!--                <span class="title__text">A Low Point for the Monarchy, in a New Season of ‘The Crown’</span>-->
+    <!--                <input type="submit" class="link__button" value="View     >">-->
+    <!--            </h3>-->
+    <!--            <div class="news__information">-->
+    <!--                <span class="section__name">Technology</span>-->
+    <!--                <time class="publish__time">14:05</time>-->
+    <!--                <time class="publish__day">09.11.22</time>-->
+    <!--                <p class="news__abstract">-->
+    <!--                    Queen Elizabeth II wasn’t always the wildly popular figure that Britain mourned this year, as the latest-->
+    <!--                    episodes of the Netflix hit recall.-->
+    <!--                </p>-->
+    <!--            </div>-->
+    <!--        </article>-->
+    <!--    </template>-->
 </main>
 <div id="floor">
-    тут буде пагінація
+    <input type="button" class="arrowPrev" value="<" data-pagination="previous">
+    <div class="paginationDiv">
+        <input type="button" class="paginationNumber currentPage" value="0" data-pagination="current">
+        <span class="paginationText">of</span>
+        <input type="button" class="paginationNumber allPages" value="0" data-pagination="last">
+    </div>
+    <input type="button" class="arrowNext" value=">" data-pagination="next">
 </div>
 </body>
 </html>

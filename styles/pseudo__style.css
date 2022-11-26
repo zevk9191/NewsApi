@@ -8,3 +8,12 @@
 .news__title:hover {
     cursor: pointer;
 }
+
+.active {
+    color: #B90000;
+}
+
+.active:before {
+    content: "";
+    display: list-item;
+}

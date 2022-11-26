@@ -1,0 +1,34 @@
+#header {
+    background: #B90000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: wrap row;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    height: 5vmax;
+    width: 100vw;
+}
+
+.header__span {
+    margin: 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.5vmax;
+    color: #FFFFFF;
+    padding-right: 2%;
+}
+
+.header__h1 {
+    display: flex;
+    align-items: flex-end;
+    font-family: 'Felix Titling';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 3vmax;
+    color: #FFFFFF;
+}
+
+

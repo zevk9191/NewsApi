@@ -1,0 +1,11 @@
+#main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: wrap;
+    padding-top: 0.9%;
+    max-width: 70%;
+    width: 70vmax;
+    max-height: 70%;
+    height: auto;
+}

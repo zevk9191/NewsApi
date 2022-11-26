@@ -1,5 +1,9 @@
 const main = document.querySelector('#main');
 const navigation = document.querySelector('#navigation');
+const arrowPrev = document.querySelector('.arrowPrev');
+const arrowNext = document.querySelector('.arrowNext');
+const currentPage = document.querySelector('.currentPage');
+const allPages = document.querySelector('.allPages');
 let selectedSection;
 
 const options = {
@@ -15,7 +19,7 @@ navigation.addEventListener("click", (event) => {
         addActiveToNav(event.target);
         loadApi(event.target.dataset.section)
             .then(response => response.json())
-            .then(addInformToNews)
+            .then(pagination)
             .catch(err => console.log(err));
     }
 });
@@ -25,10 +29,46 @@ async function loadApi(chapter) {
     return response;
 }
 
-function addActiveToNav (target) {
+function addActiveToNav(target) {
     if (selectedSection) selectedSection.classList.remove('active')
     selectedSection = target;
     selectedSection.classList.add('active')
+}
+
+function pagination(array) {
+    let length = Math.ceil(array.results.length / 8);
+    console.log(length)
+    let start = 0;
+    let end = 8;
+    allPages.value = length;
+    currentPage.value = 1;
+    let newsPagination = array.results.slice(start, end);
+
+    arrowNext.addEventListener("click", () => {
+        if (currentPage.value <= allPages.value) {
+            start += 8;
+            end += 8;
+            newsPagination = array.results.slice(start, end);
+            main.innerHTML = '';
+            ++currentPage.value;
+            // addInformToNews(newsPagination);
+        }
+    })
+    arrowPrev.addEventListener("click", () => {
+        if (currentPage.value >= 1) {
+            start -= 8;
+            end -= 8;
+            newsPagination = array.results.slice(start, end);
+            main.innerHTML = '';
+            --currentPage.value;
+            // addInformToNews(newsPagination);
+        }
+    })
+    currentPage.addEventListener("click", () => {
+        alert('current page')
+    })
+    console.log(newsPagination)
+    addInformToNews(newsPagination);
 }
 
 function createNews() {
@@ -80,16 +120,15 @@ function cutAbstract(newsAbstract) {
     return (newsAbstract.length > 135) ? newsAbstract.slice(0, 135 - 1) + '…' : newsAbstract;
 }
 
-function cutDayTime (time) {
+function cutDayTime(time) {
     return (time.length > 11) ? time.slice(0, 11 - 1) : time;
 }
 
-function cutTime (time) {
-    return (time.length > 12) ? time.slice(11, 16) : time;
+function cutTime(time) {
+    return (time.length > 5) ? time.slice(11, 16) : time;
 }
 
-function addInformToNews(array) {
-    let news = array.results;
+function addInformToNews(news) {
     console.log(news);
     for (let currentNews of news) {
         let createdNews = createNews();

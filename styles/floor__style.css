@@ -1,0 +1,51 @@
+#floor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: wrap row;
+    height: 5vmax;
+    width: 100vw;
+}
+
+.arrowPrev, .arrowNext {
+    background: #D6D6D6;
+    border: none;
+    color: #FFFFFF;
+    font-size: 2vmax;
+    padding: 0 1% 0 1%;
+}
+
+.paginationNumber {
+    width: 2vmax;
+    height: 2vmax;
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1vmax;
+    line-height: 19px;
+    color: #FFFFFF;
+    background: #B90000;
+    border-radius: 100%;
+    border: none;
+}
+
+.paginationText {
+    display: block;
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.9vmax;
+    line-height: 1vmax;
+    color: #FFFFFF;
+}
+
+.paginationDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row nowrap;
+    width: 6.5vmax;
+    background: #B90000;
+    border-radius: 20%;
+    border: none;
+}
