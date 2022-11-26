@@ -94,7 +94,7 @@ function addInformToNews(array) {
     for (let currentNews of news) {
         let createdNews = createNews();
         createdNews.h3.addEventListener("click", () => {
-            window.location.href = currentNews.url;
+            window.open(currentNews.url, '_blank');
         });
         createdNews.spanTitle.textContent = currentNews.title;
 
