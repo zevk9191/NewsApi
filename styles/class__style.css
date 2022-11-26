@@ -39,6 +39,10 @@
 }
 
 .active {
-    display: list-item;
     color: #B90000;
+}
+
+.active:before {
+    content: "";
+    display: list-item;
 }

@@ -1,5 +1,6 @@
 const main = document.querySelector('#main');
 const navigation = document.querySelector('#navigation');
+let selectedSection;
 
 const options = {
     method: "GET",
@@ -10,7 +11,8 @@ const options = {
 
 navigation.addEventListener("click", (event) => {
     main.innerHTML = '';
-    if (event.target.dataset.section != undefined) {
+    if (event.target.dataset.section) {
+        addActiveToNav(event.target);
         loadApi(event.target.dataset.section)
             .then(response => response.json())
             .then(addInformToNews)
@@ -23,16 +25,22 @@ async function loadApi(chapter) {
     return response;
 }
 
+function addActiveToNav (target) {
+    if (selectedSection) selectedSection.classList.remove('active')
+    selectedSection = target;
+    selectedSection.classList.add('active')
+}
+
 function createNews() {
-    let article = document.createElement('article');
-    let h3 = document.createElement('h3');
-    let spanTitle = document.createElement('span');
-    let input = document.createElement('input');
-    let div = document.createElement('div');
-    let spanNews = document.createElement('span');
-    let timeClock = document.createElement('time');
-    let timeDay = document.createElement('time');
-    let p = document.createElement('p');
+    const article = document.createElement('article');
+    const h3 = document.createElement('h3');
+    const spanTitle = document.createElement('span');
+    const input = document.createElement('input');
+    const div = document.createElement('div');
+    const spanNews = document.createElement('span');
+    const timeClock = document.createElement('time');
+    const timeDay = document.createElement('time');
+    const p = document.createElement('p');
     article.classList.add("container");
     h3.classList.add("news__title");
     spanTitle.classList.add("title__text");
@@ -40,7 +48,7 @@ function createNews() {
     input.type = "submit";
     input.value = "View     >";
     div.classList.add("news__information");
-    spanNews.classList.add("section__news");
+    spanNews.classList.add("section__name");
     timeClock.classList.add("publish__time");
     timeDay.classList.add("publish__day");
     p.classList.add("news__abstract");
@@ -55,31 +63,40 @@ function createNews() {
     return {article, h3, spanTitle, input, div, spanNews, timeClock, timeDay, p}
 }
 
-function checkBgImg(news) {
-    let backgroundImg;
-    if (news.multimedia)
-    for (let i = 0; i < news.multimedia.length; i++) {
-        if (news.multimedia[i].url) {
-            backgroundImg = news.multimedia[i].url;
-            break;
-        } else backgroundImg = "none";
+function checkBgImg(currentNews) {
+    let backgroundImg = "none";
+    if (currentNews.multimedia) {
+        for (let i = 0; i < currentNews.multimedia.length; i++) {
+            if (currentNews.multimedia[i].url) {
+                backgroundImg = currentNews.multimedia[i].url;
+                break;
+            }
+        }
     }
     return "url(" + backgroundImg + ") 100% / 100% no-repeat border-box border-box";
 }
 
+function cutAbstract(newsAbstract) {
+    return (newsAbstract.length > 135) ? newsAbstract.slice(0, 135 - 1) + '…' : newsAbstract;
+}
+
 function addInformToNews(array) {
-    let arr = array.results;
-    console.log(arr);
-    for (let item of arr) {
-        let creat = createNews();
-        creat.h3.addEventListener("click", () => {
-            window.location.href = item.url;
+    let news = array.results;
+    console.log(news);
+    for (let currentNews of news) {
+        let createdNews = createNews();
+        createdNews.h3.addEventListener("click", () => {
+            window.location.href = currentNews.url;
         });
-        creat.spanTitle.textContent = item.title;
-        if (item.section === "admin") continue;
-        creat.spanNews.textContent = item.section;
-        creat.p.textContent = item.abstract;
-        creat.h3.style.background = checkBgImg(item);
-        main.append(creat.article);
+        createdNews.spanTitle.textContent = currentNews.title;
+
+        // API не всі новини присилає коректно, тому потрібна перевірка на правильність
+
+        if (currentNews.section === "admin") continue;
+        createdNews.spanNews.textContent = currentNews.section.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
+        createdNews.timeDay = currentNews.published_date;
+        createdNews.p.textContent = cutAbstract(currentNews.abstract);
+        createdNews.h3.style.background = checkBgImg(currentNews);
+        main.append(createdNews.article);
     }
 }
