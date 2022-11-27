@@ -1,5 +1,4 @@
 #header {
-    background: #B90000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,6 +8,7 @@
     z-index: 1;
     height: 5vmax;
     width: 100vw;
+    background: #B90000;
 }
 
 .header__span {
