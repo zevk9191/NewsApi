@@ -44,6 +44,10 @@ function main(array) {
         let news = newsArr.slice(start, end);
 
         for (let currentNews of news) {
+
+            // API не всі новини присилає коректно, тому потрібна перевірка на правильність
+
+            if (currentNews.section === "admin" || currentNews.section === "") continue;
             const article = document.createElement('article');
             const h3 = document.createElement('h3');
             const spanTitle = document.createElement('span');
@@ -76,10 +80,6 @@ function main(array) {
                 window.open(currentNews.url, '_blank');
             });
             spanTitle.textContent = currentNews.title;
-
-            // API не всі новини присилає коректно, тому потрібна перевірка на правильність
-
-            if (currentNews.section === "admin") continue;
             spanNews.textContent = currentNews.section.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
             timeDay.textContent = cutDayTime(currentNews.published_date);
             timeDay.setAttribute("datetime", cutDayTime(currentNews.published_date));
