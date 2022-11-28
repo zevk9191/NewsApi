@@ -1,13 +1,7 @@
-const main = document.querySelector('#main');
+const mainEl = document.querySelector('#main');
 const navigation = document.querySelector('#navigation');
-const arrowPrev = document.querySelector('.arrowPrev');
-const arrowNext = document.querySelector('.arrowNext');
-const currentPage = document.querySelector('.currentPage');
-const allPages = document.querySelector('.allPages');
+const floor = document.querySelector('#floor');
 let selectedSection;
-let paginationNews = [];
-let start = 0;
-let end = 8;
 
 const options = {
     method: "GET",
@@ -17,14 +11,12 @@ const options = {
 };
 
 navigation.addEventListener("click", (event) => {
-    main.innerHTML = '';
-    paginationNews = [];
-    currentPage.value = 1;
+    floor.innerHTML = '';
     if (event.target.dataset.section) {
         addActiveToNav(event.target);
         loadApi(event.target.dataset.section)
             .then(response => response.json())
-            .then(pagination)
+            .then(main)
             .catch(err => console.log(err));
     }
 });
@@ -39,32 +31,100 @@ function addActiveToNav(target) {
     selectedSection.classList.add('active')
 }
 
-function pagination(array) {
-    paginationNews = array.results;
-    allPages.value = Math.ceil(paginationNews.length / 8);
-    currentPage.value = 1;
-    createNews(paginationNews.slice(start, end));
+function main(array) {
+    const arrayNews = array.results;
+    let currentPage = 1;
+    let newsInPage = 8;
+
+    function createNews(newsArr, currentPg, newsInPg) {
+        mainEl.innerHTML = '';
+        currentPg--;
+        let start = currentPg * newsInPg;
+        let end = start + newsInPg;
+        let news = newsArr.slice(start, end);
+
+        for (let currentNews of news) {
+            const article = document.createElement('article');
+            const h3 = document.createElement('h3');
+            const spanTitle = document.createElement('span');
+            const input = document.createElement('input');
+            const div = document.createElement('div');
+            const spanNews = document.createElement('span');
+            const timeClock = document.createElement('time');
+            const timeDay = document.createElement('time');
+            const p = document.createElement('p');
+            article.classList.add("container");
+            h3.classList.add("news__title");
+            spanTitle.classList.add("title__text");
+            input.classList.add("link__button");
+            input.type = "submit";
+            input.value = "View     >";
+            div.classList.add("news__information");
+            spanNews.classList.add("section__name");
+            timeClock.classList.add("publish__time");
+            timeDay.classList.add("publish__day");
+            p.classList.add("news__abstract");
+            h3.append(spanTitle);
+            h3.append(input);
+            div.append(spanNews);
+            div.append(timeClock);
+            div.append(timeDay);
+            div.append(p);
+            article.append(h3);
+            article.append(div);
+            h3.addEventListener("click", () => {
+                window.open(currentNews.url, '_blank');
+            });
+            spanTitle.textContent = currentNews.title;
+
+            // API не всі новини присилає коректно, тому потрібна перевірка на правильність
+
+            if (currentNews.section === "admin") continue;
+            spanNews.textContent = currentNews.section.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
+            timeDay.textContent = cutDayTime(currentNews.published_date);
+            timeDay.setAttribute("datetime", cutDayTime(currentNews.published_date));
+            timeClock.textContent = cutTime(currentNews.published_date);
+            timeClock.setAttribute("datetime", cutTime(currentNews.published_date));
+            p.textContent = cutAbstract(currentNews.abstract);
+            h3.style.background = checkBgImg(currentNews);
+            mainEl.append(article);
+        }
+    }
+
+    function pagination(arrayNews, newsInPg) {
+        const pagesCount = Math.ceil(arrayNews.length / newsInPg);
+        const ul = document.createElement("ul");
+        ul.classList.add('ulPagination__style');
+
+        for (let i = 0; i < pagesCount; i++) {
+            const li = createLiElem(i + 1);
+            ul.append(li);
+        }
+        floor.append(ul);
+    }
+
+    function createLiElem(page) {
+        const li = document.createElement("li");
+        li.classList.add('liPagination__style');
+        li.textContent = page;
+
+        if (currentPage === page) li.classList.add('activeLi');
+
+        li.addEventListener("click", () => {
+            currentPage = page;
+            createNews(arrayNews, currentPage, newsInPage);
+
+            let currentLi = document.querySelector('.activeLi');
+            currentLi.classList.remove('activeLi');
+
+            li.classList.add('activeLi');
+        })
+        return li;
+    }
+
+    createNews(arrayNews, currentPage, newsInPage);
+    pagination(arrayNews, newsInPage);
 }
-
-arrowNext.addEventListener("click", () => {
-    if (currentPage.value < allPages.value) {
-        main.innerHTML = '';
-        currentPage.value++;
-        start += 8;
-        end += 8;
-        createNews(paginationNews.slice(start, end));
-    }
-});
-
-arrowPrev.addEventListener("click", () => {
-    if (currentPage.value > 1) {
-        main.innerHTML = '';
-        --currentPage.value;
-        start -= 8;
-        end -= 8;
-        createNews(paginationNews.slice(start, end));
-    }
-});
 
 function checkBgImg(currentNews) {
     let backgroundImg = "none";
@@ -89,53 +149,4 @@ function cutDayTime(time) {
 
 function cutTime(time) {
     return (time.length > 5) ? time.slice(11, 16) : time;
-}
-
-function createNews(news) {
-    for (let currentNews of news) {
-        const article = document.createElement('article');
-        const h3 = document.createElement('h3');
-        const spanTitle = document.createElement('span');
-        const input = document.createElement('input');
-        const div = document.createElement('div');
-        const spanNews = document.createElement('span');
-        const timeClock = document.createElement('time');
-        const timeDay = document.createElement('time');
-        const p = document.createElement('p');
-        article.classList.add("container");
-        h3.classList.add("news__title");
-        spanTitle.classList.add("title__text");
-        input.classList.add("link__button");
-        input.type = "submit";
-        input.value = "View     >";
-        div.classList.add("news__information");
-        spanNews.classList.add("section__name");
-        timeClock.classList.add("publish__time");
-        timeDay.classList.add("publish__day");
-        p.classList.add("news__abstract");
-        h3.append(spanTitle);
-        h3.append(input);
-        div.append(spanNews);
-        div.append(timeClock);
-        div.append(timeDay);
-        div.append(p);
-        article.append(h3);
-        article.append(div);
-        h3.addEventListener("click", () => {
-            window.open(currentNews.url, '_blank');
-        });
-        spanTitle.textContent = currentNews.title;
-
-        // API не всі новини присилає коректно, тому потрібна перевірка на правильність
-
-        if (currentNews.section === "admin") continue;
-        spanNews.textContent = currentNews.section.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
-        timeDay.textContent = cutDayTime(currentNews.published_date);
-        timeDay.setAttribute("datetime", cutDayTime(currentNews.published_date));
-        timeClock.textContent = cutTime(currentNews.published_date);
-        timeClock.setAttribute("datetime", cutTime(currentNews.published_date));
-        p.textContent = cutAbstract(currentNews.abstract);
-        h3.style.background = checkBgImg(currentNews);
-        main.append(article);
-    }
 }

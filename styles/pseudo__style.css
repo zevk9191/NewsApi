@@ -10,10 +10,10 @@
 }
 
 .active {
-    color: #B90000;
+    color: #000000;
+    background: #fdabab;
 }
 
 .active:before {
-    content: "";
     display: list-item;
 }

@@ -31,3 +31,7 @@
     border-radius: 24px;
     border: none;
 }
+
+.btn__style:hover {
+    background: #fdabab;
+}
