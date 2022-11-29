@@ -1,7 +1,5 @@
 const main = document.querySelector('#main');
 const navigation = document.querySelector('#navigation');
-// const arts = document.querySelector('.arts');
-// const automobiles = document.querySelector('.automobiles');
 const arrowPrev = document.querySelector('.arrowPrev');
 const arrowNext = document.querySelector('.arrowNext');
 const currentPage = document.querySelector('.currentPage');
@@ -20,17 +18,17 @@ async function loadApi(chapter) {
 
 navigation.addEventListener("click", (event) => {
     main.innerHTML = '';
-    // currentPage.value = 1;
+    currentPage.value = 1;
     if (event.target.dataset.section) {
         addActiveToNav(event.target);
         loadApi(event.target.dataset.section)
             .then(response => response.json())
-            .then(pagination)
+            .then(managePagination)
             .catch(err => console.log(err));
     }
 });
 
-function pagination(array) {
+function managePagination(array) {
     let start = 0;
     let end = 8;
     let newsArray = [];
@@ -41,10 +39,8 @@ function pagination(array) {
         if (currentNews.section === "admin" || currentNews.section === "") continue;
         newsArray.push(currentNews);
     }
-    console.log(newsArray);
 
     allPages.value = Math.ceil(newsArray.length / 8);
-    // console.log(newsArray);
 
     arrowNext.addEventListener("click", () => {
         start += 8;
@@ -53,9 +49,8 @@ function pagination(array) {
         let currentNews = newsArray.slice(start, end);
         console.log(currentNews);
         if (currentPage.value < allPages.value && !(currentNews.length === 0)) {
-            // ++currentPage.value;
+            ++currentPage.value;
             createNews(currentNews);
-            // currentNews = [];
         }
     });
 
@@ -64,9 +59,9 @@ function pagination(array) {
         end -= 8;
         main.innerHTML = '';
         let currentNews = newsArray.slice(start, end);
-        console.log(currentNews + 'після Prev після вирізання');
+        console.log(currentNews);
         if (currentPage.value > 1 && !(currentNews.length === 0)) {
-            // --currentPage.value;
+            --currentPage.value;
             createNews(currentNews);
         }
     });
@@ -75,7 +70,6 @@ function pagination(array) {
 }
 
 function createNews(news) {
-    // console.log(news);
     for (let currentNews of news) {
         const article = document.createElement('article');
         const h3 = document.createElement('h3');
