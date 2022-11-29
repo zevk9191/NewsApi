@@ -21,8 +21,8 @@ navigation.addEventListener("click", (event) => {
     }
 });
 
-async function loadApi(chapter) {
-    return await fetch(`https://api.nytimes.com/svc/topstories/v2/${chapter}.json?api-key=mXG2yTTr2lwpAgGeDbuyqauFKz44AFEL`, options);
+function loadApi(chapter) {
+    return fetch(`https://api.nytimes.com/svc/topstories/v2/${chapter}.json?api-key=mXG2yTTr2lwpAgGeDbuyqauFKz44AFEL`, options);
 }
 
 function createCurrentNewsSection(array) {
