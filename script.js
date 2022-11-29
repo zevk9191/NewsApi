@@ -16,7 +16,7 @@ navigation.addEventListener("click", (event) => {
         addActiveToNav(event.target);
         loadApi(event.target.dataset.section)
             .then(response => response.json())
-            .then(main)
+            .then(createCurrentNewsSection)
             .catch(err => console.log(err));
     }
 });
@@ -25,16 +25,18 @@ async function loadApi(chapter) {
     return await fetch(`https://api.nytimes.com/svc/topstories/v2/${chapter}.json?api-key=mXG2yTTr2lwpAgGeDbuyqauFKz44AFEL`, options);
 }
 
-function addActiveToNav(target) {
-    if (selectedSection) selectedSection.classList.remove('active')
-    selectedSection = target;
-    selectedSection.classList.add('active')
-}
-
-function main(array) {
-    const arrayNews = array.results;
+function createCurrentNewsSection(array) {
+    const arrayNews = [];
     let currentPage = 1;
     let newsInPage = 8;
+
+    for (let currentNews of array.results) {
+
+        // API не всі новини присилає коректно, тому потрібна перевірка на правильність
+
+        if (currentNews.section === "admin" || currentNews.section === "") continue;
+        arrayNews.push(currentNews);
+    }
 
     function createNews(newsArr, currentPg, newsInPg) {
         mainEl.innerHTML = '';
@@ -45,9 +47,6 @@ function main(array) {
 
         for (let currentNews of news) {
 
-            // API не всі новини присилає коректно, тому потрібна перевірка на правильність
-
-            if (currentNews.section === "admin" || currentNews.section === "") continue;
             const article = document.createElement('article');
             const h3 = document.createElement('h3');
             const spanTitle = document.createElement('span');
@@ -91,7 +90,7 @@ function main(array) {
         }
     }
 
-    function pagination(arrayNews, newsInPg) {
+    function addPagination(arrayNews, newsInPg) {
         const pagesCount = Math.ceil(arrayNews.length / newsInPg);
         const ul = document.createElement("ul");
         ul.classList.add('ulPagination__style');
@@ -123,7 +122,7 @@ function main(array) {
     }
 
     createNews(arrayNews, currentPage, newsInPage);
-    pagination(arrayNews, newsInPage);
+    addPagination(arrayNews, newsInPage);
 }
 
 function checkBgImg(currentNews) {
@@ -149,4 +148,10 @@ function cutDayTime(time) {
 
 function cutTime(time) {
     return (time.length > 5) ? time.slice(11, 16) : time;
+}
+
+function addActiveToNav(target) {
+    if (selectedSection) selectedSection.classList.remove('active')
+    selectedSection = target;
+    selectedSection.classList.add('active')
 }
