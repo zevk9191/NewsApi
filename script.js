@@ -21,11 +21,11 @@ function loadApi(chapter) {
 }
 
 navigation.addEventListener("click", (event) => {
-    start = 0;
-    end = 8;
-    main.innerHTML = '';
-    newsArray = [];
     if (event.target.dataset.section) {
+        start = 0;
+        end = 8;
+        main.innerHTML = '';
+        newsArray = [];
         addActiveToNav(event.target);
         loadApi(event.target.dataset.section)
             .then(response => response.json())
