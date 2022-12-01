@@ -9,13 +9,13 @@
 
 .paginationDiv {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-flow: row nowrap;
-    width: 6.5vmax;
+    width: auto;
     height: 2.5vmax;
     background: #B90000;
-    border-radius: 20%;
+    border-radius: 2vmax;
     border: none;
 }
 
@@ -30,8 +30,8 @@
 }
 
 .paginationNumber {
-    width: 2vmax;
-    height: 2vmax;
+    width: 2.5vmax;
+    height: 2.5vmax;
     font-family: sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -41,12 +41,6 @@
     background: #B90000;
     border-radius: 100%;
     border: none;
-}
-
-.currentPage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .paginationText {
@@ -64,4 +58,5 @@
     background: #fdabab;
     border: none;
     border-radius: 10%;
+    cursor: pointer;
 }

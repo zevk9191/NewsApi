@@ -69,21 +69,6 @@ arrowPrev.addEventListener("click", () => {
     }
 });
 
-currentPage.addEventListener("click", () => {
-    // currentPage.setAttribute("contenteditable", "false");
-    // currentPage.setAttribute("tabindex", "-1");
-    currentPage.focus();
-})
-
-allPages.addEventListener("click", () => {
-    main.innerHTML = '';
-    start = (allPages.value - 1) * 8;
-    end = start + 8;
-    let currentNews = newsArray.slice(start, end);
-    currentPage.value = allPages.value;
-    createNews(currentNews);
-})
-
 function createNews(news) {
     for (let currentNews of news) {
         const article = document.createElement('article');
