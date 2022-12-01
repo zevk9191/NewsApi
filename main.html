@@ -21,22 +21,29 @@
     <h1 class="header__h1">New York Times</h1>
 </header>
 <nav id="navigation">
-    <button type="submit" class="btn__style arts" data-section="arts">Arts</button>
-    <button type="submit" class="btn__style automobiles" data-section="automobiles">Automobiles</button>
-    <button type="submit" class="btn__style business" data-section="business">Business</button>
-    <button type="submit" class="btn__style fashion" data-section="fashion">Fashion</button>
-    <button type="submit" class="btn__style health" data-section="health">Health</button>
-    <button type="submit" class="btn__style movies" data-section="movies">Movies</button>
-    <button type="submit" class="btn__style politics" data-section="politics">Politics</button>
-    <button type="submit" class="btn__style science" data-section="science">Science</button>
-    <button type="submit" class="btn__style sports" data-section="sports">Sports</button>
-    <button type="submit" class="btn__style technology" data-section="technology">Technology</button>
-    <button type="submit" class="btn__style travel" data-section="travel">Travel</button>
-    <button type="submit" class="btn__style world" data-section="world">World</button>
+    <button type="submit" class="btn__style" data-section="arts">Arts</button>
+    <button type="submit" class="btn__style" data-section="automobiles">Automobiles</button>
+    <button type="submit" class="btn__style" data-section="business">Business</button>
+    <button type="submit" class="btn__style" data-section="fashion">Fashion</button>
+    <button type="submit" class="btn__style" data-section="health">Health</button>
+    <button type="submit" class="btn__style" data-section="movies">Movies</button>
+    <button type="submit" class="btn__style" data-section="politics">Politics</button>
+    <button type="submit" class="btn__style" data-section="science">Science</button>
+    <button type="submit" class="btn__style" data-section="sports">Sports</button>
+    <button type="submit" class="btn__style" data-section="technology">Technology</button>
+    <button type="submit" class="btn__style" data-section="travel">Travel</button>
+    <button type="submit" class="btn__style" data-section="world">World</button>
 </nav>
 <main id="main">
 </main>
 <div id="floor">
+    <input type="button" class="arrowPrev arrow" value="<" data-pagination="previous">
+    <div class="paginationDiv">
+        <input type="text" class="paginationNumber currentPage" value="0">
+        <span class="paginationText">of</span>
+        <input type="button" class="paginationNumber allPages" value="0">
+    </div>
+    <input type="button" class="arrowNext arrow" value=">" data-pagination="next">
 </div>
 </body>
 </html>
