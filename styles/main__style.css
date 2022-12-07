@@ -21,7 +21,7 @@
     height: auto;
 }
 
-.onError {
+.p__error {
     display: flex;
     justify-content: center;
     align-items: center;

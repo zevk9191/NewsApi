@@ -5,8 +5,6 @@ const currentPage = document.querySelector('.currentPage');
 const allPages = document.querySelector('.allPages');
 const newsContainer = document.querySelector('.news__container');
 let selectedSection;
-let start = 0;
-let end = 8;
 let newsArray = [];
 
 
@@ -22,8 +20,6 @@ function loadApi(chapter) {
 
 navigation.addEventListener("click", (event) => {
     if (event.target.dataset.section) {
-        start = 0;
-        end = 8;
         newsContainer.innerHTML = '';
         newsArray = [];
         addActiveToNav(event.target);
@@ -43,17 +39,15 @@ function managePagination(array) {
         newsArray.push(currentNews);
     }
     allPages.value = Math.ceil(newsArray.length / 8);
-    createNews(newsArray.slice(start, end));
+    createNews(newsArray.slice(+currentPage.value, +currentPage.value + 8));
     return currentPage.value = 1;
 }
 
 arrowNext.addEventListener("click", () => {
     if (currentPage.value < allPages.value) {
         newsContainer.innerHTML = '';
-        start += 8;
-        end += 8;
-        let currentNews = newsArray.slice(start, end);
         ++currentPage.value;
+        let currentNews = newsArray.slice((+currentPage.value - 1) * 8, +currentPage.value * 8);
         createNews(currentNews);
     }
 });
@@ -61,10 +55,8 @@ arrowNext.addEventListener("click", () => {
 arrowPrev.addEventListener("click", () => {
     if (currentPage.value > 1) {
         newsContainer.innerHTML = '';
-        start -= 8;
-        end -= 8;
-        let currentNews = newsArray.slice(start, end);
         --currentPage.value;
+        let currentNews = newsArray.slice((+currentPage.value - 1) * 8, +currentPage.value * 8);
         createNews(currentNews);
     }
 });
@@ -140,14 +132,14 @@ function cutTime(time) {
 }
 
 function addActiveToNav(target) {
-    if (selectedSection) selectedSection.classList.remove('active')
+    if (selectedSection) selectedSection.classList.remove('active');
     selectedSection = target;
-    selectedSection.classList.add('active')
+    selectedSection.classList.add('active');
 }
 
-function onError (error) {
-const p = document.createElement('p');
-p.classList.add('onError');
-p.textContent = `Помилка: ${error.message}`;
-newsContainer.before(p);
+function onError(error) {
+    const p = document.createElement('p');
+    p.classList.add('p__error');
+    p.textContent = `Помилка: ${error.message}`;
+    newsContainer.before(p);
 }
