@@ -1,9 +1,9 @@
-const main = document.querySelector('#main');
 const navigation = document.querySelector('#navigation');
 const arrowPrev = document.querySelector('.arrowPrev');
 const arrowNext = document.querySelector('.arrowNext');
 const currentPage = document.querySelector('.currentPage');
 const allPages = document.querySelector('.allPages');
+const newsContainer = document.querySelector('.news__container');
 let selectedSection;
 let start = 0;
 let end = 8;
@@ -24,13 +24,13 @@ navigation.addEventListener("click", (event) => {
     if (event.target.dataset.section) {
         start = 0;
         end = 8;
-        main.innerHTML = '';
+        newsContainer.innerHTML = '';
         newsArray = [];
         addActiveToNav(event.target);
         loadApi(event.target.dataset.section)
             .then(response => response.json())
             .then(managePagination)
-            .catch(err => console.log(err));
+            .catch(onError);
     }
 });
 
@@ -49,7 +49,7 @@ function managePagination(array) {
 
 arrowNext.addEventListener("click", () => {
     if (currentPage.value < allPages.value) {
-        main.innerHTML = '';
+        newsContainer.innerHTML = '';
         start += 8;
         end += 8;
         let currentNews = newsArray.slice(start, end);
@@ -60,7 +60,7 @@ arrowNext.addEventListener("click", () => {
 
 arrowPrev.addEventListener("click", () => {
     if (currentPage.value > 1) {
-        main.innerHTML = '';
+        newsContainer.innerHTML = '';
         start -= 8;
         end -= 8;
         let currentNews = newsArray.slice(start, end);
@@ -110,7 +110,7 @@ function createNews(news) {
         timeClock.setAttribute("datetime", cutTime(currentNews.published_date));
         p.textContent = cutAbstract(currentNews.abstract);
         h3.style.background = checkBgImg(currentNews);
-        main.append(article);
+        newsContainer.append(article);
     }
 }
 
@@ -143,4 +143,11 @@ function addActiveToNav(target) {
     if (selectedSection) selectedSection.classList.remove('active')
     selectedSection = target;
     selectedSection.classList.add('active')
+}
+
+function onError (error) {
+const p = document.createElement('p');
+p.classList.add('onError');
+p.textContent = `Помилка: ${error.message}`;
+newsContainer.before(p);
 }
