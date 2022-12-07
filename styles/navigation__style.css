@@ -1,21 +1,15 @@
-.header__span {
-    margin: 0;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.5vmax;
-    color: #FFFFFF;
-    padding-right: 2%;
-}
-
-.header__h1 {
+#navigation {
     display: flex;
-    align-items: flex-end;
-    font-family: 'Felix Titling';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 3vmax;
-    color: #FFFFFF;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+    flex-flow: wrap column;
+    position: sticky;
+    top: 7vmax;
+    z-index: 1;
+    margin: 2% 0 0 2%;
+    max-width: 30%;
+    width: 12vmax;
 }
 
 .btn__style {
@@ -38,7 +32,6 @@
     border: none;
 }
 
-.active {
-    display: list-item;
-    color: #B90000;
+.btn__style:hover {
+    background: #fdabab;
 }

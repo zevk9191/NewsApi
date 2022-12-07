@@ -7,16 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NewsApi</title>
     <link rel="stylesheet" href="styles/basic__style.css">
-    <link rel="stylesheet" href="styles/class__style.css">
-    <link rel="stylesheet" href="styles/id__style.css">
+    <link rel="stylesheet" href="styles/header__style.css">
+    <link rel="stylesheet" href="styles/navigation__style.css">
+    <link rel="stylesheet" href="styles/main__style.css">
     <link rel="stylesheet" href="styles/news__style.css">
+    <link rel="stylesheet" href="styles/floor__style.css">
     <link rel="stylesheet" href="styles/pseudo__style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
 <header id="header">
     <span class="header__span">News from</span>
-    <h1 class="header__h1"> New York Times</h1>
+    <h1 class="header__h1">New York Times</h1>
 </header>
 <nav id="navigation">
     <button type="submit" class="btn__style" data-section="arts">Arts</button>
@@ -33,25 +35,16 @@
     <button type="submit" class="btn__style" data-section="world">World</button>
 </nav>
 <main id="main">
-    <article class="container">
-        <h3 class="news__title">
-            <span class="title__text">A Low Point for the Monarchy, in a New Season of ‘The Crown’</span>
-            <input type="submit" class="link__button" value="View     >">
-        </h3>
-        <div class="news__information">
-            <span class="section__news">Technology</span>
-            <time class="publish__time">14:05</time>
-            <time class="publish__day">09.11.22</time>
-            <p class="news__abstract">
-                Queen Elizabeth II wasn’t always the wildly popular figure that Britain mourned this year, as the latest
-                episodes of the Netflix hit recall.
-            </p>
+    <div class="news__container"></div>
+    <div id="floor">
+        <input type="button" class="arrowPrev arrow" value="<" data-pagination="previous">
+        <div class="paginationDiv">
+            <input type="submit" class="paginationNumber currentPage" value="0">
+            <span class="paginationText">of</span>
+            <input type="submit" class="paginationNumber allPages" value="0">
         </div>
-
-    </article>
+        <input type="button" class="arrowNext arrow" value=">" data-pagination="next">
+    </div>
 </main>
-<div id="floor">
-    тут буде пагінація
-</div>
 </body>
 </html>
